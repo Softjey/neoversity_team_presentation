@@ -1,6 +1,6 @@
 export const meta = {
   title: 'Humans of Neoversity',
-  team: 'Команда 1',
+  team: 'Команда 2',
   presentation: '09.07.2026 · Soft Skills 3',
 };
 
