@@ -28,7 +28,7 @@ export function Team(): ReactElement {
         <Reveal className="team__head">
           <span className="kicker">Профілі</span>
           <h2 className="team__title">
-            Чотири людини, <em>жодного однакового</em> старту
+            Пʼять людей, <em>жодного однакового</em> старту
           </h2>
           <p className="team__lead">
             Натисни на картку, щоб прочитати повну історію — звідки людина прийшла, чому обрала

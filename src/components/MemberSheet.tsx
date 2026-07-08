@@ -109,10 +109,12 @@ export function MemberSheet({ member, onClose, onPrev, onNext }: MemberSheetProp
               <h2 className="sheet__name" id="sheet-name">
                 {member.fullName}
               </h2>
-              <p className="sheet__meta">
-                {member.age && <span>{member.age} років</span>}
-                {member.location && <span>{member.location}</span>}
-              </p>
+              {(member.age || member.location) && (
+                <p className="sheet__meta">
+                  {member.age && <span>{member.age} років</span>}
+                  {member.location && <span>{member.location}</span>}
+                </p>
+              )}
             </div>
           </header>
 
