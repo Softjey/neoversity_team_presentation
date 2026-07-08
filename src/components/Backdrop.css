@@ -8,11 +8,12 @@
 
 /* ── Аврора ──────────────────────────────────────────── */
 
+/* Без filter: blur() — під ним радіальний градієнт, який і так мʼякий.
+   Блюр такого радіуса змушував GPU перемальовувати три великі шари щокадру. */
 .backdrop__aurora {
   position: absolute;
   border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.75;
+  opacity: 0.85;
   will-change: transform;
 }
 
@@ -23,7 +24,7 @@
   height: 46vw;
   min-width: 380px;
   min-height: 380px;
-  background: radial-gradient(circle, rgba(139, 108, 255, 0.6), transparent 70%);
+  background: radial-gradient(circle, rgba(139, 108, 255, 0.5), rgba(139, 108, 255, 0) 72%);
   animation: drift-a 26s var(--ease-in-out) infinite;
 }
 
@@ -34,7 +35,7 @@
   height: 40vw;
   min-width: 340px;
   min-height: 340px;
-  background: radial-gradient(circle, rgba(61, 220, 151, 0.34), transparent 70%);
+  background: radial-gradient(circle, rgba(61, 220, 151, 0.28), rgba(61, 220, 151, 0) 72%);
   animation: drift-b 32s var(--ease-in-out) infinite;
 }
 
@@ -45,7 +46,7 @@
   height: 48vw;
   min-width: 380px;
   min-height: 380px;
-  background: radial-gradient(circle, rgba(76, 168, 255, 0.34), transparent 70%);
+  background: radial-gradient(circle, rgba(76, 168, 255, 0.28), rgba(76, 168, 255, 0) 72%);
   animation: drift-c 38s var(--ease-in-out) infinite;
 }
 
@@ -122,8 +123,27 @@
   }
 }
 
+/* Зерно на тачі: inset -50% це чотири екрани площі, а mix-blend-mode
+   змушує композитор зливати всю сторінку в одну групу на кожен кадр. */
+@media (hover: none), (pointer: coarse) {
+  .backdrop__grain {
+    inset: 0;
+    animation: none;
+    mix-blend-mode: normal;
+    opacity: 0.12;
+  }
+
+  /* На вузькому екрані блоби (min-width: 380px) накривають усе разом
+     і заливають контент кольором. Тихіші й без анімації. */
+  .backdrop__aurora {
+    animation: none;
+    will-change: auto;
+    opacity: 0.42;
+  }
+}
+
 .backdrop__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 120% 80% at 50% 40%, transparent 45%, rgba(6, 6, 10, 0.72));
+  background: radial-gradient(ellipse 120% 80% at 50% 40%, rgba(6, 6, 10, 0) 45%, rgba(6, 6, 10, 0.72));
 }

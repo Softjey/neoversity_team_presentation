@@ -140,7 +140,7 @@
   border-radius: 999px;
   border: 1px solid var(--line-strong);
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
+  backdrop-filter: var(--glass);
   box-shadow: 0 0 60px -12px rgba(139, 108, 255, 0.5);
 }
 

@@ -48,7 +48,6 @@ body.has-custom-cursor * {
   height: 34px;
   border: 1px solid var(--cursor-accent, rgba(255, 255, 255, 0.32));
   background: color-mix(in srgb, var(--cursor-accent, #fff) 6%, transparent);
-  backdrop-filter: blur(1px);
   transition:
     width 0.35s var(--ease-out),
     height 0.35s var(--ease-out),

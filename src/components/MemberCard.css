@@ -24,7 +24,7 @@
   height: 100%;
   border-radius: var(--radius-lg);
   background: linear-gradient(165deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
-  backdrop-filter: blur(16px);
+  backdrop-filter: var(--glass);
   overflow: hidden;
   transform: rotateX(var(--rx)) rotateY(var(--ry));
   transform-style: preserve-3d;
@@ -264,7 +264,18 @@
   outline-offset: -4px;
 }
 
-@media (max-width: 640px) {
+/* Тілт вимкнено на тачі, тож 3D-контекст лише змушує браузер
+   тримати картки в окремих шарах і растеризувати їх заново */
+@media (hover: none), (pointer: coarse) {
+  .member-card__reveal {
+    perspective: none;
+  }
+
+  .member-card {
+    transform: none;
+    transform-style: flat;
+  }
+
   .member-card__body {
     transform: none;
   }

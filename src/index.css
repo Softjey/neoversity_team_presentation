@@ -48,7 +48,21 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
+  /* Матове скло. Кожен backdrop-filter змушує GPU перечитувати підложку
+     під елементом на кожен кадр — на мобільних це найдорожча властивість
+     на сторінці. Один токен, щоб вимкнути її скрізь одразу. */
+  --glass: blur(14px);
+
   color-scheme: dark;
+}
+
+/* Тач-пристрої: скла немає. Замість нього трохи щільніший фон поверхонь,
+   щоб панелі не стали прозорими. */
+@media (hover: none), (pointer: coarse) {
+  :root {
+    --glass: none;
+    --surface: rgba(255, 255, 255, 0.045);
+  }
 }
 
 *,
@@ -173,7 +187,8 @@ p {
     opacity 0.9s var(--ease-out),
     transform 0.9s var(--ease-out);
   transition-delay: calc(var(--i, 0) * 90ms);
-  will-change: opacity, transform;
+  /* Без will-change: .reveal висить на десятках елементів, і кожен
+     отримав би власний композитний шар ще до того, як щось анімується */
 }
 
 .reveal[data-in='true'] {

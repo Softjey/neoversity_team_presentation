@@ -11,7 +11,7 @@
   position: absolute;
   inset: 0;
   background: rgba(4, 4, 8, 0.72);
-  backdrop-filter: blur(10px);
+  backdrop-filter: var(--glass);
   animation: sheet-fade 0.5s var(--ease-out) both;
   cursor: pointer;
 }
@@ -76,7 +76,7 @@
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--line);
   background: rgba(10, 10, 16, 0.7);
-  backdrop-filter: blur(12px);
+  backdrop-filter: var(--glass);
 }
 
 .sheet__nav {
@@ -318,6 +318,13 @@ kbd {
   gap: 0.35rem;
   font-size: 0.72rem;
   color: var(--ink-faint);
+}
+
+@media (hover: none), (pointer: coarse) {
+  /* Скла немає — компенсуємо щільністю */
+  .sheet__backdrop {
+    background: rgba(4, 4, 8, 0.92);
+  }
 }
 
 @media (max-width: 640px) {
