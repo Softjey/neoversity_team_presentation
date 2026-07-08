@@ -1,0 +1,90 @@
+.future {
+  position: relative;
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+.future__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.future__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.future__title {
+  font-size: clamp(1.85rem, 4.6vw, 3.5rem);
+  font-weight: 300;
+  max-width: 18ch;
+}
+
+.future__quote {
+  position: relative;
+  max-width: 74ch;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139, 108, 255, 0.1), transparent 60%),
+    rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(14px);
+  text-align: center;
+}
+
+.future__mark {
+  position: absolute;
+  top: -0.35em;
+  left: 50%;
+  translate: -50% 0;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 1;
+  color: var(--violet);
+  opacity: 0.3;
+  user-select: none;
+}
+
+.future__body {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 300;
+  color: var(--ink-muted);
+}
+
+.future__signature {
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.future__authors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.future__author {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.future__authors-label {
+  margin-left: 0.6rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}

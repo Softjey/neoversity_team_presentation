@@ -1,0 +1,188 @@
+.paths {
+  padding-block: clamp(3rem, 7vw, 6.5rem);
+}
+
+.paths__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.paths__title {
+  font-size: clamp(1.85rem, 4.4vw, 3.25rem);
+  font-weight: 300;
+}
+
+.paths__list {
+  border-top: 1px solid var(--line);
+}
+
+/* ── Рядок шляху ─────────────────────────────────────── */
+
+.paths__row {
+  display: grid;
+  /* max-content на колонці «куди» ділиться між рядками —
+     тож усі стрілки закінчуються на одному x */
+  grid-template-columns: minmax(0, 1fr) minmax(60px, 1.6fr) max-content auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  padding-block: clamp(1.1rem, 2.2vw, 1.75rem);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.5s var(--ease-out);
+}
+
+.paths__row:hover {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 7%, transparent), transparent);
+}
+
+.paths__from {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.9vw, 1.5rem);
+  font-weight: 300;
+  color: var(--ink-faint);
+  transition: color 0.5s var(--ease-out);
+}
+
+.paths__row:hover .paths__from {
+  color: var(--ink-muted);
+}
+
+.paths__to {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  color: var(--ink);
+}
+
+/* Лінія, що «проростає» при появі у вʼюпорті */
+.paths__line {
+  position: relative;
+  height: 1px;
+  background: var(--line);
+  overflow: visible;
+}
+
+.paths__line-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, transparent, var(--accent));
+  transition: transform 1.1s var(--ease-out);
+  transition-delay: calc(0.15s + var(--i) * 0.14s);
+}
+
+.paths__tip {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  translate: 50% -50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  transition-delay: calc(1s + var(--i) * 0.14s);
+}
+
+.paths__list[data-in='true'] .paths__line-fill {
+  transform: scaleX(1);
+}
+
+.paths__list[data-in='true'] .paths__tip {
+  opacity: 1;
+}
+
+.paths__who {
+  justify-self: end;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition:
+    border-color 0.5s var(--ease-out),
+    color 0.5s var(--ease-out);
+}
+
+.paths__row:hover .paths__who {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+/* ── Точка сходження ─────────────────────────────────── */
+
+.paths__converge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: clamp(2rem, 4vw, 3rem);
+}
+
+.paths__converge-line {
+  width: 1px;
+  height: clamp(40px, 6vw, 72px);
+  background: linear-gradient(180deg, transparent, var(--line-strong));
+}
+
+/* Пігулка і градієнтний текст — різні елементи:
+   background-clip: text обрізав би і фон самої пігулки */
+.paths__converge-node {
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 60px -12px rgba(139, 108, 255, 0.5);
+}
+
+.paths__converge-text {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  font-weight: 400;
+  background: var(--team-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 760px) {
+  .paths__row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'who who'
+      'from from'
+      'line line'
+      'to to';
+    gap: 0.5rem;
+  }
+
+  .paths__from {
+    grid-area: from;
+  }
+
+  .paths__line {
+    grid-area: line;
+    margin-block: 0.35rem;
+  }
+
+  .paths__to {
+    grid-area: to;
+  }
+
+  .paths__who {
+    grid-area: who;
+    justify-self: start;
+    margin-bottom: 0.35rem;
+  }
+}

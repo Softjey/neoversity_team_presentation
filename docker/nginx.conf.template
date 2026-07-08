@@ -1,0 +1,66 @@
+server {
+    listen ${PORT};
+    listen [::]:${PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 512;
+    gzip_types
+        text/plain
+        text/css
+        text/javascript
+        application/javascript
+        application/json
+        image/svg+xml;
+
+    # УВАГА: add_header не успадковується, а перекривається — щойно в location
+    # зʼявляється власний add_header, усі серверні зникають. Тому захисні
+    # заголовки повторюються в кожному location, де є свій add_header.
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+
+    # SPA: будь-який шлях віддає index.html
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Хешовані файли Vite — кешуємо назавжди.
+    # Один add_header замість expires + add_header, інакше Cache-Control дублюється.
+    location /assets/ {
+        access_log off;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options SAMEORIGIN always;
+        add_header Referrer-Policy strict-origin-when-cross-origin always;
+    }
+
+    # index.html не кешуємо, інакше новий деплой не доїде до користувача
+    location = /index.html {
+        add_header Cache-Control "no-store, must-revalidate" always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options SAMEORIGIN always;
+        add_header Referrer-Policy strict-origin-when-cross-origin always;
+    }
+
+    # Фото учасників і фавікон — не хешовані, тож помірний кеш
+    location ~* \.(png|jpe?g|webp|svg|woff2?)$ {
+        access_log off;
+        add_header Cache-Control "public, max-age=604800" always;
+        add_header X-Content-Type-Options nosniff always;
+        add_header X-Frame-Options SAMEORIGIN always;
+        add_header Referrer-Policy strict-origin-when-cross-origin always;
+    }
+
+    # Healthcheck для Railway
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+}

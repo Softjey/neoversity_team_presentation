@@ -1,0 +1,68 @@
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--accent) 42%, transparent), transparent 70%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 0 0 1px var(--line);
+  isolation: isolate;
+}
+
+.avatar[data-size='card'] {
+  width: 72px;
+  height: 72px;
+}
+
+.avatar[data-size='sheet'] {
+  width: clamp(88px, 12vw, 132px);
+  height: clamp(88px, 12vw, 132px);
+}
+
+.avatar__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.05);
+  transition:
+    filter 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+.member-card:hover .avatar__img {
+  filter: saturate(1.05) contrast(1.05);
+  transform: scale(1.06);
+}
+
+.avatar__monogram {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.34em;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-shadow: 0 2px 20px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.avatar[data-size='card'] .avatar__monogram {
+  font-size: 1.35rem;
+}
+
+.avatar[data-size='sheet'] .avatar__monogram {
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+}
+
+/* Тонке акцентне кільце поверх фото */
+.avatar__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 38%, transparent);
+  pointer-events: none;
+}
+
+.avatar[data-photo='true'] {
+  background: var(--bg-elevated);
+}
