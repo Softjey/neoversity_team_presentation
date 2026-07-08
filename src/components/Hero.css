@@ -130,7 +130,13 @@
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  padding-right: 0.06em; /* щоб не зрізало хвіст «y» */
+  /* line-height: 0.94 робить бокс нижчим за гліфи, а background-clip: text
+     малює лише в межах боксу — хвіст «y» лишався б без фону, тобто прозорим.
+     Падінги розширюють бокс під виносні елементи, negative margin повертає
+     рядку початкову метрику. */
+  padding-right: 0.06em;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
   animation: word-in 1.1s var(--ease-out) 0.5s both;
 }
 
