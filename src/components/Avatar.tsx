@@ -24,6 +24,7 @@ export function Avatar({ member, size = 'card' }: AvatarProps): ReactElement {
           src={member.photo}
           alt={member.fullName}
           decoding="async"
+          style={member.photoPosition ? { objectPosition: member.photoPosition } : undefined}
           onError={() => setFailed(true)}
         />
       ) : (

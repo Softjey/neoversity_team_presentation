@@ -5,6 +5,8 @@ export interface Member {
   age?: number;
   monogram: string;
   photo?: string;
+  /** object-position для фото, якщо обличчя не по центру кадру */
+  photoPosition?: string;
   role: string;
   company?: string;
   /** Якщо задано — компанію видно окремим кольором, а не сірим */
@@ -131,6 +133,9 @@ export const members: Member[] = [
     name: 'Анна',
     fullName: 'Анна',
     monogram: 'А',
+    photo: '/avatars/anna.jpg',
+    // Портретний кадр, обличчя у верхній третині
+    photoPosition: '50% 22%',
     role: 'Graphic Designer & Art Director',
     accent: '#F26FB8',
     accentSoft: 'rgba(242, 111, 184, 0.16)',
